@@ -7,38 +7,72 @@
   
   <style>
     :root {
-      --bg: #0f1218;
-      --card-bg: #191e28;
-      --surface: #222937;
-      --surface-hover: #2b3445;
-      --border: #2e3748;
+      /* Base Theme: Slate Classic */
+      --bg: #0e1117;
+      --card-bg: #181d26;
+      --surface: #222835;
+      --surface-hover: #2b3342;
+      --border: #2d3646;
       --text-main: #f3f6fc;
-      --text-muted: #9aa5b8;
-      --text-subtle: #6e798d;
+      --text-muted: #9ba7ba;
+      --text-subtle: #6d788c;
       
-      /* Mode Dynamic Accent Tokens - Defaults to Encode (Emerald) */
-      --mode-accent: #10b981;
-      --mode-glow: rgba(16, 185, 129, 0.18);
-      --mode-border: rgba(16, 185, 129, 0.4);
-      --mode-badge-bg: rgba(16, 185, 129, 0.14);
-      --mode-badge-text: #34d399;
-      --output-box-text: #a7f3d0;
+      /* Mode Dynamic Tokens - Encode Mode (Warm Amber / Gold) */
+      --mode-accent: #f59e0b;
+      --mode-glow: rgba(245, 158, 11, 0.2);
+      --mode-border: rgba(245, 158, 11, 0.45);
+      --mode-badge-bg: rgba(245, 158, 11, 0.15);
+      --mode-badge-text: #fbbf24;
+      --output-box-text: #fde68a;
       
       --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-hebrew: "Segoe UI Hebrew", "Arial Hebrew", "David", "SBL Hebrew", -apple-system, sans-serif;
       --touch-min-h: 46px;
       --radius-sm: 10px;
       --radius-md: 16px;
       --radius-lg: 22px;
     }
 
-    /* Decoding theme mode (Warm Amber / Gold) */
+    /* Decode Mode Tokens (Emerald / Mint Green) */
     body.mode-decode {
-      --mode-accent: #f59e0b;
-      --mode-glow: rgba(245, 158, 11, 0.18);
-      --mode-border: rgba(245, 158, 11, 0.4);
-      --mode-badge-bg: rgba(245, 158, 11, 0.14);
-      --mode-badge-text: #fbbf24;
-      --output-box-text: #fde68a;
+      --mode-accent: #10b981;
+      --mode-glow: rgba(16, 185, 129, 0.2);
+      --mode-border: rgba(16, 185, 129, 0.45);
+      --mode-badge-bg: rgba(16, 185, 129, 0.15);
+      --mode-badge-text: #34d399;
+      --output-box-text: #a7f3d0;
+    }
+
+    /* Feminine Theme: Rose Velvet & Warm Quartz */
+    body.theme-rose {
+      --bg: #150f16;
+      --card-bg: #211624;
+      --surface: #2e1e32;
+      --surface-hover: #3b2840;
+      --border: #442a4a;
+      --text-main: #fbf5fc;
+      --text-muted: #c9afcd;
+      --text-subtle: #8e7392;
+    }
+
+    /* Feminine + Encode (Soft Peach Amber) */
+    body.theme-rose:not(.mode-decode) {
+      --mode-accent: #f97316;
+      --mode-glow: rgba(249, 115, 22, 0.22);
+      --mode-border: rgba(249, 115, 22, 0.45);
+      --mode-badge-bg: rgba(249, 115, 22, 0.15);
+      --mode-badge-text: #fdba74;
+      --output-box-text: #fed7aa;
+    }
+
+    /* Feminine + Decode (Mint Sage Orchid) */
+    body.theme-rose.mode-decode {
+      --mode-accent: #2dd4bf;
+      --mode-glow: rgba(45, 212, 191, 0.22);
+      --mode-border: rgba(45, 212, 191, 0.45);
+      --mode-badge-bg: rgba(45, 212, 191, 0.15);
+      --mode-badge-text: #5eead4;
+      --output-box-text: #99f6e4;
     }
 
     * {
@@ -56,25 +90,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 18px 16px 28px;
+      padding: 16px 14px 28px;
       line-height: 1.5;
-      transition: background-color 0.25s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .container {
       width: 100%;
-      max-width: 540px;
+      max-width: 530px;
       margin: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
     }
 
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 4px;
+      padding: 4px 2px;
     }
 
     .brand-wrap {
@@ -84,11 +118,11 @@
     }
 
     .app-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: var(--mode-badge-bg);
-      border: 1px solid var(--mode-border);
-      border-radius: 10px;
+      border: 1.5px solid var(--mode-border);
+      border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -97,8 +131,8 @@
     }
 
     .app-icon svg {
-      width: 20px;
-      height: 20px;
+      width: 21px;
+      height: 21px;
     }
 
     .app-title {
@@ -108,19 +142,55 @@
       color: var(--text-main);
     }
 
-    .mode-indicator {
-      font-size: 0.82rem;
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Style Switcher Pill */
+    .theme-toggle-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 9999px;
+      padding: 5px 11px;
+      font-size: 0.8rem;
       font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      color: var(--text-main);
+      border-color: var(--mode-border);
+    }
+
+    .theme-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--mode-accent);
+      box-shadow: 0 0 6px var(--mode-accent);
+    }
+
+    .mode-indicator {
+      font-size: 0.8rem;
+      font-weight: 700;
       padding: 4px 10px;
       border-radius: 9999px;
       background: var(--mode-badge-bg);
       color: var(--mode-badge-text);
       border: 1px solid var(--mode-border);
       transition: all 0.25s ease;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
 
+    /* Navigation Tabs */
     .tab-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -135,12 +205,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
       background: transparent;
       border: 1px solid transparent;
       color: var(--text-muted);
       min-height: var(--touch-min-h);
-      padding: 10px 14px;
+      padding: 10px 12px;
       font-size: 1.05rem;
       font-weight: 600;
       border-radius: var(--radius-sm);
@@ -151,19 +221,21 @@
     .tab-btn svg {
       width: 20px;
       height: 20px;
+      flex-shrink: 0;
     }
 
     .tab-btn.active {
       background: var(--surface);
       color: var(--text-main);
       border-color: var(--mode-border);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
     }
 
     .tab-btn.active svg {
       color: var(--mode-accent);
     }
 
+    /* Cards & Inputs */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -172,8 +244,8 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
-      transition: border-color 0.25s ease;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+      transition: border-color 0.25s ease, background-color 0.25s ease;
     }
 
     .card.active-card {
@@ -207,10 +279,10 @@
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 14px 16px;
-      font-size: 1.05rem; /* Large WhatsApp-comfortable reading size */
+      font-size: 1.05rem;
       color: var(--text-main);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
       font-family: inherit;
       -webkit-appearance: none;
     }
@@ -222,13 +294,13 @@
 
     .key-quick-btn {
       position: absolute;
-      right: 8px;
+      right: 7px;
       background: var(--surface-hover);
       border: 1px solid var(--border);
       color: var(--text-muted);
       cursor: pointer;
-      min-width: 40px;
-      min-height: 40px;
+      min-width: 42px;
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -249,9 +321,9 @@
 
     textarea.input-field {
       resize: vertical;
-      min-height: 120px;
-      line-height: 1.5;
-      font-size: 1.05rem;
+      min-height: 125px;
+      line-height: 1.55;
+      font-size: 1.08rem;
     }
 
     .char-count {
@@ -261,25 +333,33 @@
     }
 
     .output-box {
-      background: #11141a;
+      background: rgba(0, 0, 0, 0.28);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 15px 16px;
-      min-height: 120px;
-      font-size: 1.05rem;
-      line-height: 1.5;
+      min-height: 125px;
+      font-size: 1.12rem;
+      line-height: 1.6;
       word-break: break-all;
       color: var(--output-box-text);
       white-space: pre-wrap;
-      font-family: inherit;
+      font-family: var(--font-hebrew);
+      letter-spacing: 0.04em;
       user-select: text;
       -webkit-user-select: text;
       transition: color 0.2s ease, border-color 0.2s ease;
     }
 
+    .output-box.decoded-view {
+      font-family: var(--font-family);
+      letter-spacing: normal;
+    }
+
     .output-box.empty {
       color: var(--text-subtle);
       font-style: italic;
+      font-family: var(--font-family);
+      letter-spacing: normal;
     }
 
     .action-bar {
@@ -298,7 +378,7 @@
       min-height: var(--touch-min-h);
       padding: 0 16px;
       border-radius: var(--radius-sm);
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
@@ -319,15 +399,15 @@
     }
 
     .btn-icon svg {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       flex-shrink: 0;
     }
 
     .btn-icon.copied {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: #10b981;
-      color: #34d399;
+      background: var(--mode-badge-bg);
+      border-color: var(--mode-accent);
+      color: var(--mode-badge-text);
     }
 
     .btn-icon.danger {
@@ -336,10 +416,9 @@
 
     .btn-icon.danger:hover {
       border-color: #ef4444;
-      background: rgba(239, 68, 68, 0.12);
+      background: rgba(239, 68, 68, 0.14);
     }
 
-    /* Mode-themed primary copy button */
     .btn-icon.btn-primary {
       background: var(--surface);
       border-color: var(--mode-border);
@@ -350,7 +429,6 @@
       background: var(--mode-badge-bg);
     }
 
-    /* Centered Swap Button Divider */
     .swap-divider {
       display: flex;
       justify-content: center;
@@ -362,14 +440,14 @@
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .btn-swap:hover, .btn-swap:active {
@@ -380,11 +458,10 @@
     }
 
     .btn-swap svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
     }
 
-    /* Helpful non-intrusive hint */
     .permission-hint {
       display: none;
       background: rgba(59, 130, 246, 0.1);
@@ -392,25 +469,25 @@
       border-radius: var(--radius-sm);
       color: #93c5fd;
       padding: 10px 14px;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       margin-top: 4px;
       line-height: 1.4;
     }
 
-    /* Toast Notification for confirmations */
+    /* Toast Notification */
     #toast {
       position: fixed;
-      bottom: 28px;
+      bottom: 26px;
       left: 50%;
-      transform: translateX(-50%) translateY(60px);
-      background: #1e293b;
-      border: 1px solid var(--mode-border);
+      transform: translateX(-50%) translateY(70px);
+      background: var(--card-bg);
+      border: 1.5px solid var(--mode-border);
       color: var(--text-main);
       padding: 12px 22px;
       border-radius: 9999px;
       font-size: 0.95rem;
       font-weight: 600;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -427,7 +504,7 @@
 
     footer {
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--text-subtle);
       margin-top: 4px;
     }
@@ -439,6 +516,7 @@
     <header>
       <div class="brand-wrap">
         <div class="app-icon" id="app-badge-icon">
+          <!-- Ambient Lock/Script Icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -446,10 +524,17 @@
         </div>
         <h1 class="app-title">Whisper</h1>
       </div>
-      <div class="mode-indicator" id="mode-badge">Encode Mode</div>
+      
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="theme-btn" onclick="togglePalette()" title="Toggle Color Theme">
+          <span class="theme-dot"></span>
+          <span id="theme-name">Classic</span>
+        </button>
+        <div class="mode-indicator" id="mode-badge">Encode Mode</div>
+      </div>
     </header>
 
-    <!-- Mode Selector with Emerald vs Amber theme feedback -->
+    <!-- Mode Selector: Encode (Amber) vs Decode (Emerald) -->
     <nav class="tab-nav">
       <button class="tab-btn active" id="tab-encode" onclick="switchMode('encode')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -466,10 +551,11 @@
       </button>
     </nav>
 
+    <!-- Passcode Section -->
     <section class="card active-card">
       <div class="label-row">
         <span class="label-title">Secret Passcode / Key</span>
-        <span style="font-size: 0.8rem; color: var(--text-subtle);">Shared with recipient</span>
+        <span style="font-size: 0.82rem; color: var(--text-subtle);">Shared with recipient</span>
       </div>
       <div class="input-wrapper">
         <input 
@@ -492,6 +578,7 @@
       </div>
     </section>
 
+    <!-- Main Message Card -->
     <main class="card">
       <!-- Input Section -->
       <div class="io-section">
@@ -502,11 +589,11 @@
         <textarea 
           id="input-text" 
           class="input-field" 
-          placeholder="Type or paste message here..."
+          placeholder="Type your message in English..."
         ></textarea>
         
         <div class="permission-hint" id="paste-hint">
-          <strong>Tip:</strong> Tap inside the box above to use your phone's native <strong>Paste</strong> popup.
+          <strong>Tip:</strong> Tap inside the box above to use your phone's native <strong>Paste</strong> option.
         </div>
 
         <div class="action-bar">
@@ -539,7 +626,7 @@
       <!-- Output Section -->
       <div class="io-section">
         <div class="label-row">
-          <span class="label-title" id="output-label">Encoded Result</span>
+          <span class="label-title" id="output-label">Encoded Result (Script)</span>
           <span class="char-count" id="output-count">0 chars</span>
         </div>
         <div class="output-box empty" id="output-text">Result will appear here...</div>
@@ -574,10 +661,60 @@
   <div id="toast">Copied to clipboard</div>
 
   <script>
-    let currentMode = 'encode'; // 'encode' or 'decode'
-    const START_CHAR = 32;       // Printable space ' '
-    const END_CHAR = 126;        // Printable tilde '~'
-    const RANGE = END_CHAR - START_CHAR + 1; // 95 printable chars
+    let currentMode = 'encode'; // 'encode' (Warm Amber) or 'decode' (Emerald)
+    let currentPalette = 'classic'; // 'classic' or 'rose'
+
+    /*
+      The Hebrew alphabet comprises 22 standard letters (Alef to Tav, U+05D0 to U+05EA)
+      plus 5 sofit / final letter forms (Khaf, Mem, Nun, Pe, Tsadi).
+      
+      We construct a 26-character sequence of Hebrew letters corresponding to 
+      the 26 English alphabet letters (A-Z):
+      Index 0..21: The 22 standard Hebrew letters
+      Index 22..25: The first 4 final forms (ך, ם, ן, ף)
+      This provides a direct 1:1 reversible mapping with 26 letters!
+      
+      To preserve Latin capitalization reversibly without altering text flow,
+      uppercase letters get a subtle, standard Hebrew vowel point (Dagesh / dot U+05BC).
+      Lower-case letters remain plain Hebrew characters.
+      Numbers, punctuation, linebreaks, and symbols remain untouched.
+    */
+    const HEBREW_ALPHABET = [
+      '\u05D0', // 0: Alef  -> a
+      '\u05D1', // 1: Bet   -> b
+      '\u05D2', // 2: Gimel -> c
+      '\u05D3', // 3: Dalet -> d
+      '\u05D4', // 4: He    -> e
+      '\u05D5', // 5: Vav   -> f
+      '\u05D6', // 6: Zayin -> g
+      '\u05D7', // 7: Het   -> h
+      '\u05D8', // 8: Tet   -> i
+      '\u05D9', // 9: Yod   -> j
+      '\u05DA', // 10: Kaf  -> k
+      '\u05DC', // 11: Lamed-> l
+      '\u05DD', // 12: Mem  -> m
+      '\u05DE', // 13: Nun  -> n
+      '\u05DF', // 14: Samekh -> o
+      '\u05E0', // 15: Ayin -> p
+      '\u05E1', // 16: Pe   -> q
+      '\u05E2', // 17: Tsadi-> r
+      '\u05E3', // 18: Qof  -> s
+      '\u05E4', // 19: Resh -> t
+      '\u05E5', // 20: Shin -> u
+      '\u05E6', // 21: Tav  -> v
+      '\u05E7', // 22: Qof2 / Sofit Kaf -> w
+      '\u05E8', // 23: Resh2 / Sofit Mem -> x
+      '\u05E9', // 24: Shin2 / Sofit Nun -> y
+      '\u05EA'  // 25: Tav2 / Sofit Pe  -> z
+    ];
+
+    const DAGESH_MARK = '\u05BC'; // Marks uppercase letter in Hebrew
+
+    // Build reverse map for fast O(1) lookup
+    const HEBREW_TO_INDEX = new Map();
+    HEBREW_ALPHABET.forEach((char, idx) => {
+      HEBREW_TO_INDEX.set(char, idx);
+    });
 
     const inputArea = document.getElementById('input-text');
     const outputBox = document.getElementById('output-text');
@@ -587,44 +724,77 @@
     const toast = document.getElementById('toast');
     const pasteHint = document.getElementById('paste-hint');
 
-    // Parse passcode into a shift offset
-    function parseKey(keyStr) {
+    // Parse passcode into a shift offset modulo 26
+    function parseShift(keyStr) {
       if (!keyStr || keyStr.length === 0) return 0;
       
       const parsedNum = parseInt(keyStr, 10);
       if (!isNaN(parsedNum) && /^-?\d+$/.test(keyStr.trim())) {
-        return ((parsedNum % RANGE) + RANGE) % RANGE;
+        return ((parsedNum % 26) + 26) % 26;
       }
 
-      // If passphrase or word, compute deterministic shift
+      // If passphrase or word, compute deterministic shift hash
       let hash = 0;
       for (let i = 0; i < keyStr.length; i++) {
-        hash = (hash * 31 + keyStr.charCodeAt(i)) % RANGE;
+        hash = (hash * 31 + keyStr.charCodeAt(i)) % 26;
       }
-      return (hash + RANGE) % RANGE;
+      return (hash + 26) % 26;
     }
 
-    // Bidirectional character transform
-    function transformMessage(text, keyStr, isEncoding) {
+    function encodeToHebrew(text, keyStr) {
       if (!text) return '';
-      const shift = parseKey(keyStr);
+      const shift = parseShift(keyStr);
       let result = '';
 
       for (let i = 0; i < text.length; i++) {
+        const char = text[i];
         const code = text.charCodeAt(i);
-        if (code >= START_CHAR && code <= END_CHAR) {
-          const zeroIndexed = code - START_CHAR;
-          let transformed;
-          if (isEncoding) {
-            transformed = (zeroIndexed + shift) % RANGE;
-          } else {
-            transformed = (zeroIndexed - shift) % RANGE;
-            if (transformed < 0) transformed += RANGE;
-          }
-          result += String.fromCharCode(transformed + START_CHAR);
+
+        if (code >= 65 && code <= 90) {
+          // Uppercase Latin (A-Z)
+          const index = code - 65;
+          const shiftedIndex = (index + shift) % 26;
+          // Attach Dagesh mark to designate uppercase
+          result += HEBREW_ALPHABET[shiftedIndex] + DAGESH_MARK;
+        } else if (code >= 97 && code <= 122) {
+          // Lowercase Latin (a-z)
+          const index = code - 97;
+          const shiftedIndex = (index + shift) % 26;
+          result += HEBREW_ALPHABET[shiftedIndex];
         } else {
-          // Preserve spaces/tabs/returns or special unicode
-          result += text[i];
+          // Numbers, punctuation, emojis, spaces preserved untouched
+          result += char;
+        }
+      }
+      return result;
+    }
+
+    function decodeFromHebrew(text, keyStr) {
+      if (!text) return '';
+      const shift = parseShift(keyStr);
+      let result = '';
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+
+        if (HEBREW_TO_INDEX.has(char)) {
+          const index = HEBREW_TO_INDEX.get(char);
+          const originalIndex = (index - shift + 26) % 26;
+
+          // Check if followed by uppercase mark (Dagesh)
+          const hasUppercaseMark = (i + 1 < text.length && text[i + 1] === DAGESH_MARK);
+          if (hasUppercaseMark) {
+            result += String.fromCharCode(65 + originalIndex);
+            i++; // skip past the dagesh
+          } else {
+            result += String.fromCharCode(97 + originalIndex);
+          }
+        } else if (char === DAGESH_MARK) {
+          // Stray mark ignored if encountered out-of-order
+          continue;
+        } else {
+          // Non-encoded character (punctuation, numbers, spacing)
+          result += char;
         }
       }
       return result;
@@ -640,13 +810,21 @@
       if (!text) {
         outputBox.textContent = 'Result will appear here...';
         outputBox.classList.add('empty');
+        outputBox.classList.remove('decoded-view');
         outputCount.textContent = '0 chars';
         return;
       }
 
-      const result = transformMessage(text, key, isEncoding);
+      const result = isEncoding ? encodeToHebrew(text, key) : decodeFromHebrew(text, key);
       outputBox.textContent = result;
       outputBox.classList.remove('empty');
+
+      if (isEncoding) {
+        outputBox.classList.remove('decoded-view');
+      } else {
+        outputBox.classList.add('decoded-view');
+      }
+
       outputCount.textContent = `${result.length} chars`;
     }
 
@@ -660,24 +838,42 @@
       const modeBadge = document.getElementById('mode-badge');
 
       if (mode === 'encode') {
+        // ENCODE = Warm Amber
         document.body.classList.remove('mode-decode');
         tabEncode.classList.add('active');
         tabDecode.classList.remove('active');
         modeBadge.textContent = 'Encode Mode';
-        inputLabel.textContent = 'Original Message';
-        outputLabel.textContent = 'Encoded Result';
-        inputArea.placeholder = 'Type your message to encode...';
+        inputLabel.textContent = 'Original Message (English)';
+        outputLabel.textContent = 'Encoded Result (Script)';
+        inputArea.placeholder = 'Type your message in English...';
       } else {
+        // DECODE = Emerald Green
         document.body.classList.add('mode-decode');
         tabDecode.classList.add('active');
         tabEncode.classList.remove('active');
         modeBadge.textContent = 'Decode Mode';
-        inputLabel.textContent = 'Encoded Message';
-        outputLabel.textContent = 'Decoded Result';
-        inputArea.placeholder = 'Paste encoded message to decode...';
+        inputLabel.textContent = 'Encoded Message (Script)';
+        outputLabel.textContent = 'Decoded Result (English)';
+        inputArea.placeholder = 'Paste encoded script here to decode...';
       }
 
       processText();
+    }
+
+    // Palette Switcher: Classic (Slate) vs Rose Velvet (Feminine)
+    function togglePalette() {
+      const themeBtnName = document.getElementById('theme-name');
+      if (currentPalette === 'classic') {
+        currentPalette = 'rose';
+        document.body.classList.add('theme-rose');
+        themeBtnName.textContent = 'Rose Velvet';
+        showToast('Switched to Rose Velvet style');
+      } else {
+        currentPalette = 'classic';
+        document.body.classList.remove('theme-rose');
+        themeBtnName.textContent = 'Classic';
+        showToast('Switched to Classic style');
+      }
     }
 
     function generateRandomKey() {
@@ -713,7 +909,7 @@
       const text = outputBox.textContent;
       let copied = false;
 
-      // Primary: Modern Async Clipboard API
+      // Primary: Modern Clipboard API
       if (navigator.clipboard && window.isSecureContext) {
         try {
           await navigator.clipboard.writeText(text);
@@ -723,7 +919,7 @@
         }
       }
 
-      // Fallback: execCommand with invisible DOM textarea
+      // Fallback: execCommand with DOM textarea
       if (!copied) {
         try {
           const tempArea = document.createElement('textarea');
@@ -807,7 +1003,7 @@
             text: text
           });
         } catch (err) {
-          // User canceled or dismissed
+          // User cancelled
         }
       } else {
         copyResult();
@@ -824,6 +1020,7 @@
       }, 2000);
     }
 
+    // Attach real-time listeners
     inputArea.addEventListener('input', () => {
       pasteHint.style.display = 'none';
       processText();
