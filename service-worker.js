@@ -1,4 +1,4 @@
-const CACHE_NAME = 'whisper-shell-v2';
+const CACHE_NAME = 'whisper-shell-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,9 +6,9 @@ const APP_SHELL = [
   './script.js',
   './manifest.webmanifest',
   './icons/icon.svg',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/icon-192-v2.png',
+  './icons/icon-512-v2.png',
+  './icons/apple-touch-icon-v2.png'
 ];
 
 self.addEventListener('install', event => {
